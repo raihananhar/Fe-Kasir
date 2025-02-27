@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kasir</title>
+</head>
+<body>
+    <h1>Kasir Offline</h1>
+    <input type="text" id="barcode" placeholder="Scan barcode">
+    <button onclick="fetchProduct()">Cari Produk</button>
+    <p id="result"></p>
+
+    <script>
+        function fetchProduct() {
+            const barcode = document.getElementById('barcode').value;
+            fetch(`http://localhost:8080/products/${barcode}`)
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('result').innerText = data.name + " - Rp " + data.price;
+                })
+                .catch(err => console.error(err));
+        }
+    </script>
+</body>
+</html>
